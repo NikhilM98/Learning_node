@@ -1,0 +1,22 @@
+{
+  "name": "note_app",
+  "version": "1.0.0",
+  "description": "Learning Node Project One",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/NikhilM98/Learning_node.git"
+  },
+  "author": "Nikhil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikhilM98/Learning_node/issues"
+  },
+  "homepage": "https://github.com/NikhilM98/Learning_node#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
