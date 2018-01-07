@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NikhilM98/Learning_node#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "yargs": "^10.0.3"
   }
 }
