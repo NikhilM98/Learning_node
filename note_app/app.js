@@ -27,18 +27,41 @@ const notes = require('./notes.js');
 //     if(err) throw err;
 //     console.log('The data was appended to greetings.txt');
 // });
-const argv = yargs.argv;
+const title = {
+    describe: 'Title of note',
+    demand: true,
+    alias: 't'
+};
+
+const argv = yargs
+    .command('add', 'Adds a new note', {
+        title,
+        body: {
+            describe: 'Body of note',
+            demand: true,
+            alias: 'b'
+        },
+    })
+    .command('list', 'List all notes')
+    .command('delete', 'Delete notes', {
+        title
+    })
+    .command('read', 'Read notes', {
+        title
+    })
+    .help()
+    .argv;
 
 // console.log('Process: ',process.argv);
-console.log('Yargs: ',argv);
+// console.log('Yargs: ',argv);
 
 // var command = process.argv[2]; 
 var command = argv._[0];
-console.log(`Command: ${command}`);
+// console.log(`Command: ${command}`);
 
 if (command === 'list') {
     allNotes = notes.getAll();
-    notes.forEach(note => {
+    allNotes.forEach(note => {
         console.log(`Note title: ${note.title} and body: ${note.body}`);        
     });
 } else if (command === 'add') {

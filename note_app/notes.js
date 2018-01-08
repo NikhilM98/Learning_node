@@ -49,6 +49,7 @@ var removeNote = (title) => {
 }
 
 var getNote = (title) => {
+    debugger;
     console.log('Reading Note by Title:', title);
     var notes = fetchNotes();
     foundNote = notes.filter( note => note.title === title);
