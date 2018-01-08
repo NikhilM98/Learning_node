@@ -37,13 +37,27 @@ var command = argv._[0];
 console.log(`Command: ${command}`);
 
 if (command === 'list') {
-    notes.getAll();
+    allNotes = notes.getAll();
+    notes.forEach(note => {
+        console.log(`Note title: ${note.title} and body: ${note.body}`);        
+    });
 } else if (command === 'add') {
-    notes.addNote(argv.title, argv.body);
+    res = notes.addNote(argv.title, argv.body);
+    if (res) {
+        console.log(`Note created with Title: ${res.title} and Body: "${res.body}"`);
+    } else {
+        console.log(`Title already taken`);
+    }
 } else if (command === 'delete') {
-    notes.removeNote(argv.title);
+    res = notes.removeNote(argv.title);
+    res ? `${console.log('Note successfully removed')}` : `${console.log(`Title doesn't exists`)}`;
 } else if (command === 'read') {
-    notes.getNote(argv.title);
+    var foundNote = notes.getNote(argv.title);
+    if(foundNote) {
+        console.log(`Note found with title: ${foundNote[0].title} and body: ${foundNote[0].body}`);
+    } else {
+        console.log('No note found matching the title');
+    }
 } else {
     console.log('Command Not Recognized');
 }
