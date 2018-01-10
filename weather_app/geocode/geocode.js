@@ -3,9 +3,9 @@ const request = require('request');
 // encodeURIComponent decodeURIComponent
 
 // console.log(argv);
-var geocodeAddress = (argv, callback) => {
+var geocodeAddress = (address, callback) => {
     request({
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURIComponent(argv.a),
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURIComponent(address),
         json: true,
     },
     (error, response, body) => {
@@ -15,7 +15,7 @@ var geocodeAddress = (argv, callback) => {
             callback('Invalid Address');
         } else if (body.status === 'OVER_QUERY_LIMIT') {
             callback('Failed to get address (OVER_QUERY_LIMIT). Retrying...');
-            setTimeout(() => geocodeAddress(argv, callback), 1000);
+            setTimeout(() => geocodeAddress(address, callback), 1000);
         } else if (body.status === 'OK') {
             // console.log(JSON.stringify(body, undefined, 2));
             callback(undefined, {

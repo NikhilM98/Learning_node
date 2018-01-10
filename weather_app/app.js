@@ -25,7 +25,7 @@ var handleResponse = (errorMessage, results) => {
     }
 }
 
-var locationResult =  geocode.geocodeAddress(argv, (errorMessage, results) => {
+geocode.geocodeAddress(argv.a, (errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {
