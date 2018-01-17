@@ -13,15 +13,28 @@ it("Should add two numbers", () => {
 
 });
 
-it("Should square a number", () => {
-    var res = utils.square(6);
+// it("Should square a number", () => {
+//     var res = utils.square(6);
 
-    expect(res).toBe(36).toBeA('number');
+//     expect(res).toBe(36).toBeA('number');
 
-    // if (res != 36) {
-    //     throw Error(`Expected 36 but got ${res}`);
-    // }
+//     // if (res != 36) {
+//     //     throw Error(`Expected 36 but got ${res}`);
+//     // }
 
+// });
+it("Should square a number", done => {
+    var res = utils.square(6, square => {
+        expect(square).toBe(36).toBeA('number');
+        done();
+    });
+});
+
+it('Should async add two numbers', done => {
+    utils.asyncAdd(46, 24, sum => {
+        expect(sum).toBeA('number').toBe(70);
+        done();
+    })
 });
 
 it("Should test the name", () => {
