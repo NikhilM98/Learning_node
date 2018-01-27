@@ -27,7 +27,6 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
-    console.log(req.body);
     var todo = new Todo({
         text: req.body.text
     });
@@ -93,6 +92,16 @@ app.patch('/todos/:id', (req, res) => {
         }
         return res.status(200).send({todo});
     }).catch(e => res.status(400).send(e))
+});
+
+app.post('/users', (req, res) => {
+    let body = _.pick(req.body, ['email', 'password']);
+    let user = new User(body);
+    user.save().then( doc => {
+        res.send(doc);
+    }, e => {
+        res.status(400).send(e);
+    });
 });
 
 app.listen(port, () => console.log(`Started server on port ${port}`));
