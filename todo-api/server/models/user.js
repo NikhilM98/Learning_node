@@ -50,6 +50,29 @@ UserSchema.methods.generateAuthToken = function () {
     });
 };
 
+UserSchema.statics.findByToken = function (token) {
+    var User = this;
+    var decoded;
+
+    try {
+        decoded = jwt.verify(token, 'abc123')
+    } catch (e) {
+        // return new Promise((resolve,  reject) => {
+        //     reject();
+        // })
+
+        return Promise.reject();
+    };
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth'
+    }).catch( e => console.log('error', e) );
+
+    
+}
+
 var User = mongoose.model('Users', UserSchema);
 
 // var user = new User({
@@ -63,5 +86,7 @@ var User = mongoose.model('Users', UserSchema);
 // }).then( token => {
 //     console.log('x-auth', token);
 // }).catch( e => console.log(e));
+
+// User.findByToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTZmNjAyMzYyZjk5MTEyOThkNGQ2M2UiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTE3MjQ4NTQ3fQ.D3z60BkLzxG5EIG-70S3kg__WNUoc-EX0hZNIS7Qlms')
 
 module.exports = {User};
