@@ -73,6 +73,21 @@ UserSchema.statics.findByToken = function (token) {
     
 }
 
+UserSchema.pre('save', function (next) {
+    var user = this;
+
+    if(user.isModified('password')){
+        bcrypt.genSalt(15, (err, salt) => {
+            bcrypt.hash(user.password, salt, (err, hash) => {
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        next();
+    }
+});
+
 var User = mongoose.model('Users', UserSchema);
 
 // var user = new User({
